@@ -1,14 +1,19 @@
-from typing import Optional
-
 from fastapi import FastAPI
 
 app = FastAPI()
 
-
+# Route principale
 @app.get("/")
-async def root():
+def read_root():
     return {"message": "Hello World"}
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+# Route analyze (IMPORTANT)
+@app.post("/analyze")
+def analyze_video(data: dict):
+    video_url = data.get("video_url")
+
+    return {
+        "status": "success",
+        "video_url": video_url,
+        "analysis": "Analyse test réussie"
+    }
